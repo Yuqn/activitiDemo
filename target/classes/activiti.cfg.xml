@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <!-- 数据库驱动-->
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <!-- 数据库连接-->
+        <property name="url" value="jdbc:mysql://localhost:3307/activiti-db?characterEncoding=utf-8&amp;nullCatalogMeansCurrent=true"/>
+        <!-- 数据库用户-->
+        <property name="username" value="root"/>
+        <!-- 数据库密码-->
+        <property name="password" value="idiot_Yuqn@123"/>
+        <property name="maxActive" value="3"/>
+        <property name="maxIdle" value="1"/>
+    </bean>
+    <!-- 在默认方式下，bean的id固定为processEngineConfiguration-->
+    <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
+        <!-- 配置数据库相关信息-->
+        <!-- 数据库驱动-->
+<!--        <property name="jdbcDriver" value="com.mysql.cj.jdbc.Driver"/>-->
+        <!-- 数据库连接-->
+<!--        <property name="jdbcUrl" value="jdbc:mysql://localhost:3307/activity-db?characterEncoding=utf-8&amp;nullCatalogMeansCurrent=true"/>-->
+        <!-- 数据库用户-->
+<!--        <property name="jdbcUsername" value="root"/>-->
+        <!-- 数据库密码-->
+<!--        <property name="jdbcPassword" value="idiot_Yuqn@123"/>-->
+
+        <!-- 直接引用上面的-->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- activiti 数据库表生成的策略 true-如果数据库中已经存在相应的表，那么直接使用，如果不存在就会创建-->
+        <property name="databaseSchemaUpdate" value="true"/>
+    </bean>
+
+</beans>
